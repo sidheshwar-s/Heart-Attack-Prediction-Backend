@@ -1,6 +1,7 @@
 from app.config.logger import LogConfig
 from app.model.model import prediction
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 import time
 
 from logging.config import dictConfig
@@ -11,6 +12,14 @@ logger = logging.getLogger("myapp")
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def read_root():
